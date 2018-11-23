@@ -1,0 +1,47 @@
+#ifndef _GAME_CMODELINFO_H_
+#define _GAME_CMODELINFO_H_
+
+// Fix a MSVC2010 bug which pops up C4341 warning with negative enumerations and signed data types.
+#pragma warning(push)
+#pragma warning(disable: 4341)
+
+enum eModel : short
+{
+	MODEL_INTERNAL	= -2,
+	MODEL_ARTICT1	= 435,
+	MODEL_RCBANDIT	= 441,
+	MODEL_TRAM		= 449,
+	MODEL_ARTICT2,
+	MODEL_QUAD		= 471,
+	MODEL_COMBINE	= 532,
+	MODEL_STREAK	= 538,
+	MODEL_RCTIGER	= 564,
+	MODEL_KART		= 571,
+	MODEL_PETROTR	= 584,
+	MODEL_ARTICT3	= 591,
+	MODEL_RCCAM		= 594,
+	MODEL_BAGBOXA	= 606,
+	MODEL_BAGBOXB,
+	MODEL_TUGSTAIR,
+	MODEL_FARMTR1	= 610,
+	MODEL_UTILTR1,
+
+	MODEL_VCS_QUAD = 25517,
+	MODEL_BW_KART = 25520,
+	MODEL_LC_TRAINF = 6550,
+	MODEL_CC_TRAINF = 25573,
+	MODEL_ARTICT4 = 25608,
+	MODEL_ARTICT5 = 25613,
+	MODEL_LCS_RCBANDIT = 25438,
+	MODEL_VC_RCBANDIT = 25441,
+	MODEL_LC_RCBANDIT = 25443
+};
+
+#pragma warning(pop)
+
+class CModelInfo
+{
+	
+};
+
+#endif //_GAME_CMODELINFO_H_
