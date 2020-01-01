@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../StdInc.h"
 #include "Inject.h"
 
 void __declspec(naked) HOOK_4C8308_CVehicleModelInfo__SetEditableMaterialsCB_Material(void)

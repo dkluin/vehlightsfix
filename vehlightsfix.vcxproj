@@ -10,6 +10,35 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Core\Inject.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../StdInc.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="DllMain.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Game\CVehicle.cpp">
+      <PrecompiledHeaderFile Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">../StdInc.h</PrecompiledHeaderFile>
+    </ClCompile>
+    <ClCompile Include="StdInc.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\Hook.h" />
+    <ClInclude Include="Core\Inject.h" />
+    <ClInclude Include="Game\CEntity.h" />
+    <ClInclude Include="Game\CModelInfo.h" />
+    <ClInclude Include="Game\Common.h" />
+    <ClInclude Include="Game\CPed.h" />
+    <ClInclude Include="Game\CPhysical.h" />
+    <ClInclude Include="Game\CPlayerInfo.h" />
+    <ClInclude Include="Game\CTrain.h" />
+    <ClInclude Include="Game\CVehicle.h" />
+    <ClInclude Include="Game\CVehicleModelInfo.h" />
+    <ClInclude Include="Game\CWorld.h" />
+    <ClInclude Include="Game\RenderWare.h" />
+    <ClInclude Include="Imports\Underground.hpp" />
+    <ClInclude Include="StdInc.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5D9FB68F-3E2C-405F-B123-595B832A7AEC}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -70,6 +99,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;VEHLIGHTSFIX_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <EnableEnhancedInstructionSet>NoExtensions</EnableEnhancedInstructionSet>
+      <PrecompiledHeaderFile>StdInc.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -78,38 +108,6 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="game\CEntity.h" />
-    <ClInclude Include="game\CModelInfo.h" />
-    <ClInclude Include="game\Common.h" />
-    <ClInclude Include="game\CPed.h" />
-    <ClInclude Include="game\CPhysical.h" />
-    <ClInclude Include="game\CPlayerInfo.h" />
-    <ClInclude Include="game\CTrain.h" />
-    <ClInclude Include="game\CVehicle.h" />
-    <ClInclude Include="game\CVehicleModelInfo.h" />
-    <ClInclude Include="game\CWorld.h" />
-    <ClInclude Include="game\RenderWare.h" />
-    <ClInclude Include="Hook.h" />
-    <ClInclude Include="Inject.h" />
-    <ClInclude Include="StdAfx.h" />
-    <ClInclude Include="StdInc.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="DllMain.cpp">
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-      </PrecompiledHeader>
-      <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</CompileAsManaged>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-      </PrecompiledHeader>
-    </ClCompile>
-    <ClCompile Include="Inject.cpp" />
-    <ClCompile Include="StdAfx.cpp">
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
-    </ClCompile>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

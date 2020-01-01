@@ -1,4 +1,4 @@
-#include "StdAfx.h"
+#include "../StdInc.h"
 
 #ifndef _HOOK_H_
 #define _HOOK_H_

@@ -1,10 +1,9 @@
-#include "StdAfx.h"
+#include "../StdInc.h"
 
 #ifndef _INJECT_H_
 #define _INJECT_H_
 
-#include "StdInc.h"
-
+#include "Hook.h"
 namespace Hook
 {
 	namespace Opcodes
