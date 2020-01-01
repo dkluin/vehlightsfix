@@ -7,7 +7,7 @@ class CEntity
 {
 public:
 	char align_0[0x22];
-	eModel m_eModel;
+	CFileID m_eModel;
 	char align_24[0x14];
 };
 

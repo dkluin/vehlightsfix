@@ -3,6 +3,8 @@
 
 #include <Windows.h>
 
+#include "Imports/FLA/IDaccess.h"
+
 #include "Game\RenderWare.h"
 #include "Game\CModelInfo.h"
 #include "Game\CVehicleModelInfo.h"

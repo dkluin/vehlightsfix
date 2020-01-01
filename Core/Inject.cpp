@@ -1,5 +1,6 @@
 #include "../StdInc.h"
 #include "Inject.h"
+#include "../Imports/UG/Underground.hpp"
 
 void __declspec(naked) HOOK_4C8308_CVehicleModelInfo__SetEditableMaterialsCB_Material(void)
 {
@@ -49,26 +50,29 @@ not_player_vehicle:
 }
 #endif //LOGGING_SYSTEM_ACTIVE
 
+static CVehicle* HOOK_6E153D_CVehicle__DoHeadLightReflectionSingle_Vehicle;
+
 void __declspec(naked) HOOK_6E153D_CVehicle__DoHeadLightReflectionSingle(void)
 {
 #define _6E154C_CVehicle__DoHeadLightReflectionSingle	0x006E154C
 #define _6E1544_CVehicle__DoHeadLightReflectionSingle	0x006E1544
-	__asm
-	{
-		cmp		si, MODEL_QUAD
-		je		has_single_light
-		cmp		si, MODEL_VCS_QUAD
-		je		has_single_light
-		cmp		si, MODEL_KART
-		je		has_single_light
-		cmp		si, MODEL_BW_KART
 
-		mov		edx, _6E154C_CVehicle__DoHeadLightReflectionSingle
-		jmp		edx
-has_single_light:
-		mov		edx, _6E1544_CVehicle__DoHeadLightReflectionSingle
-		jmp		edx
+	_asm mov HOOK_6E153D_CVehicle__DoHeadLightReflectionSingle_Vehicle, ecx;
+	_asm pushad;
+
+	if (HOOK_6E153D_CVehicle__DoHeadLightReflectionSingle_Vehicle->m_physical.m_entity.m_eModel == MODEL_QUAD
+		|| HOOK_6E153D_CVehicle__DoHeadLightReflectionSingle_Vehicle->m_physical.m_entity.m_eModel == MODEL_VCS_QUAD
+		|| HOOK_6E153D_CVehicle__DoHeadLightReflectionSingle_Vehicle->m_physical.m_entity.m_eModel == MODEL_KART
+		|| HOOK_6E153D_CVehicle__DoHeadLightReflectionSingle_Vehicle->m_physical.m_entity.m_eModel == MODEL_BW_KART)
+	{
+		_asm popad;
+		_asm mov edx, _6E1544_CVehicle__DoHeadLightReflectionSingle;
+		_asm jmp edx;
 	}
+
+	_asm popad;
+	_asm mov edx, _6E154C_CVehicle__DoHeadLightReflectionSingle;
+	_asm jmp edx;
 #undef _6E1544_CVehicle__DoHeadLightReflectionSingle
 #undef _6E1542_CVehicle__DoHeadLightReflectionSingle
 }
@@ -163,29 +167,36 @@ no_brake_light:
 #undef _6E287A_CVehicle__DoVehicleLights
 }
 
+static CTrain* HOOK_6F5582_CTrain__PreRender_Train;
+
 void __declspec(naked) HOOK_6F5582_CTrain__PreRender(void)
 {
 #define _6F558A_CTrain__PreRender	0x006F558A
 #define _6F5599_CTrain__PreRender	0x006F5599
-	__asm
+
+	_asm mov HOOK_6F5582_CTrain__PreRender_Train, esi;
+	_asm pushad;
+
+	if (HOOK_6F5582_CTrain__PreRender_Train->m_vehicle.m_physical.m_entity.m_eModel == MODEL_TRAM)
 	{
-		cmp		[esi]CTrain.m_vehicle.m_physical.m_entity.m_eModel, MODEL_TRAM
-		je		has_taillights_too
-		cmp		[esi]CTrain.m_vehicle.m_physical.m_entity.m_eModel, MODEL_STREAK
-		je		has_no_taillight
-		cmp		[esi]CTrain.m_vehicle.m_physical.m_entity.m_eModel, MODEL_LC_TRAINF
-		je		has_no_taillight
-		cmp		[esi]CTrain.m_vehicle.m_physical.m_entity.m_eModel, MODEL_CC_TRAINF
-		je		has_no_taillight
-		test	[esi]CTrain.m_aTrainFlags, TRAIN_FLAGS0_IS_TAIL_CARRIAGE
-		jz		has_no_taillight
-has_taillights_too:
-		mov		edx, _6F558A_CTrain__PreRender
-		jmp		edx
-has_no_taillight:
-		mov		edx, _6F5599_CTrain__PreRender
-		jmp		edx
+		_asm popad;
+		_asm mov edx, _6F558A_CTrain__PreRender;
+		_asm jmp edx;
 	}
+	else if (HOOK_6F5582_CTrain__PreRender_Train->m_vehicle.m_physical.m_entity.m_eModel == MODEL_STREAK
+		|| HOOK_6F5582_CTrain__PreRender_Train->m_vehicle.m_physical.m_entity.m_eModel == MODEL_LC_TRAINF
+		|| HOOK_6F5582_CTrain__PreRender_Train->m_vehicle.m_physical.m_entity.m_eModel == MODEL_CC_TRAINF
+		|| HOOK_6F5582_CTrain__PreRender_Train->m_aTrainFlags[0] & TRAIN_FLAGS0_IS_TAIL_CARRIAGE)
+	{
+		_asm popad;
+		_asm mov edx, _6F5599_CTrain__PreRender;
+		_asm jmp edx;
+	}
+
+	_asm popad;
+	_asm mov edx, _6F558A_CTrain__PreRender;
+	_asm jmp edx;
+
 #undef _6F5599_CTrain__PreRender
 #undef _6F558A_CTrain__PreRender
 }
@@ -205,7 +216,10 @@ void __declspec(naked) HOOK_6F8E06_CTrain__ProcessControl(void)
 
 VOID WINAPI InstallAllHooks(void)
 {
-	if(!GetModuleHandleA("SilentPatchSA.asi"))
+	CFastman92limitAdjuster::Init();
+
+	// UG does not need this patch either. CVehicleModelInfo::SetEditableMaterialsCB is completely reversed in UG because of RGB/pearlescent colours which can be set in UG-MP.
+	if(!GetModuleHandleA("SilentPatchSA.asi") || !GetModuleHandleA("Underground_Core.asi"))
 		Hook::InstallHookNearJump((LPVOID)0x004C8308, HOOK_4C8308_CVehicleModelInfo__SetEditableMaterialsCB_Material);
 
 	Hook::WriteProtectedMemory<short>((LPVOID)0x006A2EA1, MODEL_INTERNAL);

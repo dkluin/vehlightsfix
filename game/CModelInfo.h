@@ -5,7 +5,7 @@
 #pragma warning(push)
 #pragma warning(disable: 4341)
 
-enum eModel : short
+enum eModel : unsigned short
 {
 	MODEL_INTERNAL	= -2,
 	MODEL_ARTICT1	= 435,

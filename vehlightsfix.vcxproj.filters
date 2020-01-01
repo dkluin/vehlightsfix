@@ -9,6 +9,18 @@
     <ClCompile Include="Game\CVehicle.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="Imports\FLA\Main.cpp">
+      <Filter>Imports\FLA</Filter>
+    </ClCompile>
+    <ClCompile Include="Imports\FLA\FileInfoMemberAccess.cpp">
+      <Filter>Imports\FLA</Filter>
+    </ClCompile>
+    <ClCompile Include="Imports\FLA\IDaccess.cpp">
+      <Filter>Imports\FLA</Filter>
+    </ClCompile>
+    <ClCompile Include="Imports\FLA\Library.cpp">
+      <Filter>Imports\FLA</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StdInc.h" />
@@ -51,8 +63,23 @@
     <ClInclude Include="Game\CTrain.h">
       <Filter>Game</Filter>
     </ClInclude>
-    <ClInclude Include="Imports\Underground.hpp">
-      <Filter>Imports</Filter>
+    <ClInclude Include="Imports\UG\Underground.hpp">
+      <Filter>Imports\UG</Filter>
+    </ClInclude>
+    <ClInclude Include="Imports\FLA\IDaccess.h">
+      <Filter>Imports\FLA</Filter>
+    </ClInclude>
+    <ClInclude Include="Imports\FLA\Main.h">
+      <Filter>Imports\FLA</Filter>
+    </ClInclude>
+    <ClInclude Include="Imports\FLA\FileInfoMemberAccess.h">
+      <Filter>Imports\FLA</Filter>
+    </ClInclude>
+    <ClInclude Include="Imports\FLA\ValueExtension.h">
+      <Filter>Imports\FLA</Filter>
+    </ClInclude>
+    <ClInclude Include="Imports\FLA\Library.h">
+      <Filter>Imports\FLA</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -64,6 +91,12 @@
     </Filter>
     <Filter Include="Imports">
       <UniqueIdentifier>{77a3610c-1340-4356-9a1b-515a240d5617}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imports\UG">
+      <UniqueIdentifier>{bf9fcdee-b363-45cf-9c57-1be0da54300e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Imports\FLA">
+      <UniqueIdentifier>{e5a5ccd4-d1ac-4168-b9e2-c4ebbafbcafc}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
